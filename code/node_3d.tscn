@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://bo7hhkvk8onwx"]
+
+[ext_resource type="Script" uid="uid://c3rv2f554sriv" path="res://node_3d.gd" id="1_a202f"]
+[ext_resource type="Script" uid="uid://ctltv1c6idbam" path="res://mesh_instance_3d.gd" id="2_noarx"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ax1q2"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_l0rur"]
+sky_material = SubResource("ProceduralSkyMaterial_ax1q2")
+
+[sub_resource type="Environment" id="Environment_v2v45"]
+background_mode = 2
+sky = SubResource("Sky_l0rur")
+tonemap_mode = 2
+
+[node name="main" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_v2v45")
+
+[node name="boden" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0730315, 0)
+size = Vector3(3, 0.1, 3)
+
+[node name="CameraRig" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.241995, 1.12283)
+script = ExtResource("1_a202f")
+
+[node name="Camera3D" type="Camera3D" parent="CameraRig"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51596, 0)
+script = ExtResource("2_noarx")
