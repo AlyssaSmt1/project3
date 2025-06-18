@@ -55,7 +55,7 @@ mesh = SubResource("CapsuleMesh_a0tk4")
 skeleton = NodePath("../CollisionShape3D")
 
 [node name="CameraRig" type="Node3D" parent="CharacterBody3D"]
-transform = Transform3D(1, 0, 0, 0, 0.948628, 0.316394, 0, -0.316394, 0.948628, 0, 0.611353, 1.58433)
+transform = Transform3D(1, 0, 0, 0, 0.948628, 0.316394, 0, -0.316394, 0.948628, 0, 1.1569, 2.46695)
 
 [node name="Camera3D" type="Camera3D" parent="CharacterBody3D/CameraRig"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.066716, 0.0826843)
