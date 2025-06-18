@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://bo7hhkvk8onwx"]
+[gd_scene load_steps=10 format=3 uid="uid://bo7hhkvk8onwx"]
 
-[ext_resource type="Script" uid="uid://c3rv2f554sriv" path="res://node_3d.gd" id="1_a202f"]
+[ext_resource type="Script" uid="uid://c7sep780k5slr" path="res://character_body_3d.gd" id="2_a0tk4"]
 [ext_resource type="Script" uid="uid://ctltv1c6idbam" path="res://mesh_instance_3d.gd" id="2_noarx"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ax1q2"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_bottom_color = Color(0.0998645, 0.179378, 0.271327, 1)
 ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
 
 [sub_resource type="Sky" id="Sky_l0rur"]
@@ -15,6 +16,19 @@ background_mode = 2
 sky = SubResource("Sky_l0rur")
 tonemap_mode = 2
 
+[sub_resource type="ArrayMesh" id="ArrayMesh_noarx"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_noarx"]
+radius = 0.2
+height = 0.7
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_a0tk4"]
+radius = 0.2
+height = 0.7
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_noarx"]
+data = PackedVector3Array(-5, -0.05, 5, -5, -0.05, -5, -5, 0.05, -5, 5, -0.05, -5, -5, -0.05, -5, -5, -0.05, 5, -5, 0.05, -5, -5, -0.05, -5, 5, -0.05, -5, -5, 0.05, -5, -5, 0.05, 5, -5, -0.05, 5, -5, -0.05, 5, -5, 0.05, 5, 5, 0.05, 5, 5, 0.05, 5, -5, 0.05, 5, -5, 0.05, -5, -5, -0.05, 5, 5, -0.05, 5, 5, -0.05, -5, 5, 0.05, 5, 5, -0.05, 5, -5, -0.05, 5, 5, -0.05, -5, 5, -0.05, 5, 5, 0.05, 5, 5, -0.05, -5, 5, 0.05, -5, -5, 0.05, -5, -5, 0.05, -5, 5, 0.05, -5, 5, 0.05, 5, 5, 0.05, 5, 5, 0.05, -5, 5, -0.05, -5)
+
 [node name="main" type="Node3D"]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
@@ -24,16 +38,33 @@ shadow_enabled = true
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_v2v45")
 
-[node name="boden" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0730315, 0)
-size = Vector3(3, 0.1, 3)
-
-[node name="CameraRig" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.241995, 1.12283)
-script = ExtResource("1_a202f")
-
-[node name="Camera3D" type="Camera3D" parent="CameraRig"]
-
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51596, 0)
+mesh = SubResource("ArrayMesh_noarx")
 script = ExtResource("2_noarx")
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.352704, 0)
+script = ExtResource("2_a0tk4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
+shape = SubResource("CapsuleShape3D_noarx")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D"]
+mesh = SubResource("CapsuleMesh_a0tk4")
+skeleton = NodePath("../CollisionShape3D")
+
+[node name="CameraRig" type="Node3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 0.948628, 0.316394, 0, -0.316394, 0.948628, 0, 0.611353, 1.58433)
+
+[node name="Camera3D" type="Camera3D" parent="CharacterBody3D/CameraRig"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.066716, 0.0826843)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0730315, 0)
+
+[node name="boden" type="CSGBox3D" parent="StaticBody3D"]
+size = Vector3(10, 0.1, 10)
+
+[node name="CSGBakedCollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_noarx")
