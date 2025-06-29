@@ -44,7 +44,7 @@ mesh = SubResource("ArrayMesh_noarx")
 script = ExtResource("2_noarx")
 
 [node name="CharacterBody3D" type="CharacterBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.352704, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.102328, 0)
 script = ExtResource("2_a0tk4")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
@@ -61,7 +61,7 @@ transform = Transform3D(1, 0, 0, 0, 0.948628, 0.316394, 0, -0.316394, 0.948628, 
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.066716, 0.0826843)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0730315, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.619354, 0)
 
 [node name="boden" type="CSGBox3D" parent="StaticBody3D"]
 size = Vector3(10, 0.1, 10)
